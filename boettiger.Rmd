@@ -1,0 +1,372 @@
+---
+title: "Inferring Transients"
+author: |
+        Carl Boettiger  
+        Dept of Environmental Science, Policy, & Management   
+        University of California, Berkeley   
+        @cboettig
+date: "29 March 2019"
+classoption: "xcolor=dvipsnames"
+output: 
+  beamer_presentation:
+    latex_engine: xelatex
+#    theme: "Frankfurt"
+#    colortheme: "structure"
+#    fonttheme: "structurebold"
+    includes:
+      in_header: "preamble.tex"
+
+---
+
+
+
+# How do we answer
+
+"is my system in a transient?"
+
+---
+
+Yes
+
+---
+
+(Provided $N > 0$)
+
+---
+
+# Everything is transient?
+
+![](img/markov)
+
+# Everything is transient?
+
+- Any finite population is guaranteed to go extinct
+
+
+# Models vs reality
+
+- Approximately stationary? 
+- Deterministic model
+- Continuous state model, environmental noise
+- Quasi-stationary distribution
+
+---
+
+Identifying transient dynamics in actual data can be challenging!
+
+---
+
+# Is this transient behavior?
+
+Eastern Atlantic Bluefin Tuna population dynamics, Bjørnstad et al. (2004).
+\begin{center}
+\includegraphics[width=8cm]{img/resonance-bjornstad2004.png}
+\end{center}
+
+# Simulations from proposed model
+
+\begin{center}
+\includegraphics[width=8cm]{img/resonance-sim}
+\end{center}
+
+
+# Simulations from deterministic skeleton
+
+\begin{center}
+\includegraphics[width=8cm]{img/resonance-det}
+\end{center}
+
+
+# Proposed model: Quasi-cycles
+
+\[x_{t+1} = x_t + x_t r \left(1 - \frac{x_t}{K}\right) - b x_t  y_t + \xi_{x,t} \]
+\[ y_{t+1} = y_t + c  x_t  y_t - d  y_t+ \xi_{y,t}  \]
+
+
+Nisbet & Gurney *Nature* (1976)
+
+# So what do quasi-cycles have to do with inferring transients?
+
+- Transient behavior in the deterministic skeleton reveals / drives the stationary behavior of the full stochastic model.
+
+# Is this a transient?
+
+Prevalence of rubella in Copenhagen, Keeling et al 2001.
+\begin{center}
+\includegraphics[width=8cm]{img/switching-keeling2001}
+\end{center}
+
+# Model dynamics 
+
+\begin{center}
+\includegraphics[width=8cm]{img/stochastic-switch}
+\end{center}
+
+# Model
+
+
+$$X_{t+1} = X_t + \underbrace{X_t r \left(1 -\frac{X_t}{K} \right)}_{\textrm{ growth, } g(X_t)}  - \underbrace{\frac{a X_t ^ Q}{X_t^ Q + H ^ Q}}_{\textrm{consumption, } c(X_t)} + \xi_t,$$
+May (1977) *Nature*
+
+# Stochastic Switching
+
+\begin{center}
+\includegraphics[width=8cm]{img/may-model}
+\end{center}
+
+# Stochastic Switching
+
+\begin{center}
+\includegraphics[width=8cm]{img/potential-well}
+\end{center}
+
+# Implications for inferring transients
+
+- Are these transitions transient dynamics?
+- Asymptotic behavior may tell us very little -- not even what attractor we are in
+- Short-term behavior may be more informative
+- Stochastic transition across saddle point is rapid (large deviation theory)
+
+
+----
+
+# Is this a transient?
+
+\begin{center}
+\includegraphics[width=8cm]{img/tip-dai2015}
+\end{center}
+
+# Model simulation
+
+\begin{center}
+\includegraphics[width=11cm]{img/tip-sim}
+\end{center}
+
+# EWS -- transient detection?
+
+\begin{center}
+\includegraphics[width=8cm]{img/ews1}
+\end{center}
+
+# Critical slowing down
+
+\begin{center}
+\includegraphics[width=8cm]{img/ews2}
+\end{center}
+
+
+# Critical slowing down
+
+\begin{center}
+\includegraphics[width=8cm]{img/ews3}
+\end{center}
+
+
+# Critical slowing down
+
+\begin{center}
+\includegraphics[width=8cm]{img/ews4}
+\end{center}
+
+
+# Critical slowing down
+
+\begin{center}
+\includegraphics[width=8cm]{img/ews5}
+\end{center}
+
+
+# Critical slowing down
+
+\begin{center}
+\includegraphics[width=8cm]{img/ews6}
+\end{center}
+
+
+# Critical slowing down
+
+\begin{center}
+\includegraphics[width=8cm]{img/ews7}
+\end{center}
+
+# Signatures of CSD?
+
+\begin{center}
+\includegraphics[width=10cm]{img/ews-sim}
+\end{center}
+
+# EWS -- transient detection?
+
+\begin{center}
+\includegraphics[width=6cm]{img/tip-dai2015}\includegraphics[width=6cm]{img/ews-dai2015}
+\end{center}
+
+# When will we actually observe critical slowing down?
+
+\begin{center}
+\includegraphics[width=9cm]{img/interface-squiggles}
+\end{center}
+
+Boettiger & Hastings (2012)
+
+# Statistical power for detection
+
+\begin{center}
+\includegraphics[width=9cm]{img/interface-stats}
+\end{center}
+
+Boettiger & Hastings (2012)
+
+# Statistical power for detection
+
+\begin{center}
+\includegraphics[width=8cm]{img/roc}
+\end{center}
+
+Boettiger & Hastings (2012)
+
+# EWS -- transient detection?
+
+\begin{center}
+\includegraphics[width=10cm]{img/ews2-dai2015}
+\end{center}
+
+# Different transient paths
+
+\includegraphics[width=10cm]{img/resilience-stability-dai2015}
+
+# Different transient paths
+
+\begin{center}
+\includegraphics[width=10cm]{img/paths-dai2015}
+\end{center}
+
+# Critical speeding up?
+
+
+\[ dX_t = X_t \frac{r}{\beta} \left( \frac{X_t}{\beta A} -1 \right) \left(1 - \frac{X_t}{\beta C} \right) dt + \sigma dB_t \]
+
+- Carrying capacity $C$, Allee threshold $A$
+- available territory $\beta$
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height=2, fig.width=5}
+library(tidyverse)
+dx <- function(x,  β = .3, r = 1, A = 1.5, C = 2.5){
+  x * (r/β) * (x / (β*A)-1)*(1 - x / (β*C))
+}
+x <- seq(-1,4, length.out = 400)
+β <- seq(0.1, 1.2, length.out = 4)
+df <- map_dfr(β, 
+               function(β) 
+                 data.frame(x = x, 
+                            dx = dx(x, β=β), 
+                            V = -cumsum(dx(x, β=β)),
+                            β=β))%>%
+  mutate(β=as.factor(round(β, digits=3)))
+
+ggplot(df, aes(x,dx, color = β)) + geom_line(lwd=1) + 
+  coord_cartesian(ylim = c(-0.3, .2), xlim = c(0,4)) + 
+  theme_bw()
+```
+
+[Titus et al (2019)](https://arxiv.org/abs/1901.08084)
+
+# Transients & bifurcations
+
+- External driver: slowly changing parameter, drives transient behavior
+- System that appears approx stationary experiences dramatic change *due to this transient shift*
+- System dynamics, e.g. bifurcation point, suggest a mechanism to detect this slow transient
+- As before, transient detection is predicated on knowing the right model structure / mechanisms
+- (Ironically we often assume ergodicity in computing EWS)
+- Endogonize parameter change as a state variable, can recover stationary oscillator dynamics
+
+
+---
+
+
+
+# Transient signatures in fluctuation dynamics
+
+\begin{center}
+\hspace{0.2cm} Markov process \hspace{2.5cm} Linear Noise Approximation
+
+\includegraphics[width=2.8cm]{img/markov}
+\hspace{0.2cm}
+\begin{tiny}
+\begin{onlinebox}{2.4cm}
+\[\Longrightarrow n = \Omega \phi + \Omega^{1/2} \xi \Longrightarrow \] 
+\end{onlinebox}
+\end{tiny}
+\hspace{0.2cm}
+\includegraphics[width=2.8cm]{img/gears} 
+
+
+\begin{block}{Fundamental Equations}
+\begin{align}
+\frac{\ud \phi}{\ud t} &= \alpha_{1,0}(\phi) \textcolor{gray}{+\alpha_{1,0}''(\phi)\sigma^2} \\
+\frac{\ud \sigma^2}{\ud t} &= 2 \alpha_{1,0}'(\phi) \sigma^2 + \alpha_{2,0}(\phi) \\ 
+\alpha_{1,0}(\phi) &= b(\phi) - d(\phi), \quad \alpha_{2,0} = b(\phi)+d(\phi) \nonumber
+\end{align}
+\end{block}
+\end{center}
+
+
+
+# Distinct Fluctuation Regimes
+
+\begin{columns}
+\column{4cm}
+\begin{center}
+\begin{footnotesize}
+\begin{displaybox}{4cm}
+\[ \frac{\ud n}{\ud t} = \underbrace{c\frac{n}{N}\left(1-\frac{n}{N}\right)}_{b_n} - \underbrace{e\frac{n}{N}}_{d_n} \]
+\end{displaybox}
+\vspace{.5cm}
+\begin{displaybox}{4cm}
+\[ 
+\frac{\ud \sigma^2}{\ud t} = 2 \alpha_{1,0}'(\phi) \sigma^2 + \alpha_{2,0}(\phi)
+\]
+\end{displaybox}
+
+\end{footnotesize}
+\end{center}
+\column{8cm}
+\includegraphics[width=7.8cm]{img/hodogram2}
+\end{columns}
+
+
+# Near Equilibrium: Fluctuation Dissipation Regime 
+
+In the dissipation regime, fluctuations exponentially relax to the equilibrium level 
+\begin{columns}
+\column{4cm}
+\begin{center}
+\footnotesize{
+\begin{onlinebox}{2.5cm} $\hat \sigma^2 = \frac{b(n)+d(n)}{2[d'(n)-b'(n)]} $ \end{onlinebox}
+\begin{itemize}
+\item $N = 1000$, $e = 0.2$, $c=1$
+\item $\hat n = N\left[1-\frac{e}{c}\right] = 800$
+\item $\hat \sigma^2 = N\frac{e}{c} = 200$
+\item Dots are simulation averages, lines are theoretical prediction
+\end{itemize}
+}	
+\end{center}
+\column{8cm}
+\includegraphics[width=8cm]{img/levins_tufte}
+\end{columns}
+
+
+# Fluctuation Enhancement
+
+With an initial condition starting deep in the enhancement regime, fluctuations grow exponentially.  At $N=400$, dissipation takes over and fluctuations return to the same equilibrium as before.  
+\begin{center}
+\includegraphics[width=8cm]{img/levins_tufte2}
+\end{center}
+
+
+# Conclusions
+
+- Inference of transients depends on the model
+- Testing if system meets *assumptions* of the model may matter more than statistical inferences conditional on the model(s)
+- Stochasticity matters -- can change how transients behave, or even change our definition of transient behavior.
+- Stochasticity + transient dynamics can be a rich source of information in a complex and nonlinear world

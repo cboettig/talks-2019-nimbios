@@ -1,0 +1,43 @@
+---
+title: "CSU.Rmd"
+author: "Carl Boettiger"
+date: "5/28/2019"
+output: html_document
+---
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height=2, fig.width=5}
+library(tidyverse)
+dx <- function(x,  β = .3, r = 1, A = 1.5, C = 2.5){
+  x * (r/β) * (x / (β*A)-1)*(1 - x / (β*C))
+}
+x <- seq(-1,4, length.out = 400)
+β <- seq(0.1, 1.2, length.out = 4)
+df <- map_dfr(β, 
+               function(β) 
+                 data.frame(x = x, 
+                            dx = dx(x, β=β), 
+                            V = -cumsum(dx(x, β=β)),
+                            β=β))%>%
+  mutate(β=as.factor(round(β, digits=3)))
+
+ggplot(df, aes(x,dx, color = β)) + geom_line(lwd=1) + 
+  coord_cartesian(ylim = c(-0.3, .2), xlim = c(0,4)) + 
+  theme_bw()
+```
+
+```{r}
+#df %>% filter(β == β[[1]]) %>% ggplot(df, aes(x,V, color = β)) + geom_line() + cood
+
+## Shift potential well up to be strictly positive, since constant of integration is 
+## arbitrary; all that matters is relative height within a given potential.
+df %>% group_by(β) %>% 
+  summarize(minV = min(V)) %>% 
+  inner_join(df) %>% 
+  mutate(V = V - minV) -> df
+
+df %>%
+ggplot(aes(x,V, color = β)) + geom_line(lwd=1) +
+  theme_minimal() + 
+  coord_cartesian(ylim = c(0, 40), xlim=c(-.1, 4))
+```
