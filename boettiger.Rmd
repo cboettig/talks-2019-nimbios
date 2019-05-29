@@ -212,7 +212,7 @@ Boettiger & Hastings (2012)
 # Statistical power for detection
 
 \begin{center}
-\includegraphics[width=9cm]{img/interface-stats}
+\includegraphics[width=8cm]{img/interface-stats}
 \end{center}
 
 Boettiger & Hastings (2012)
@@ -220,7 +220,7 @@ Boettiger & Hastings (2012)
 # Statistical power for detection
 
 \begin{center}
-\includegraphics[width=8cm]{img/roc}
+\includegraphics[width=9cm]{img/roc}
 \end{center}
 
 Boettiger & Hastings (2012)
